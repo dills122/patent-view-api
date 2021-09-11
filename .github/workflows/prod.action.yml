@@ -9,7 +9,27 @@ on:
       - master
 
 jobs:
-  build:
+  gh-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
+  npm-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -21,3 +41,23 @@ jobs:
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+  release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Create Release Notes
+        uses: docker://decathlon/release-notes-generator-action:2.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OUTPUT_FOLDER: temp_release_notes
+          USE_MILESTONE_TITLE: 'true'
+      - name: Upload Release Notes to Wiki
+        uses: docker://decathlon/wiki-page-creator-action:latest
+        env:
+          ACTION_MAIL: myuser@users.noreply.github.com
+          ACTION_NAME: myPushingUser
+          GH_PAT: ${{ secrets.GH_PAT }}
+          MD_FOLDER: temp_release_notes
+          OWNER: yourGitHubOrganisation
+          REPO_NAME: patent-view-api
+          SKIP_MD: README.md
