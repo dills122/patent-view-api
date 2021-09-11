@@ -1,0 +1,74 @@
+{
+  "name": "uspto-patents-view-api",
+  "version": "0.0.3",
+  "description": "An api wrapper for the patent view api run by the uspto",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha -r ts-node/register \"src/**/*.spec.ts\"",
+    "build": "tsc -p .",
+    "compile": "tsc",
+    "clean": "tsc --build --clean && rm -r ./types",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prettier": "prettier --write src/**/*.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "src/**/*.ts": ["prettier --write", "git add"],
+      "package.json": ["prettier --write", "git add"],
+      "*.md": ["prettier --write", "git add"]
+    },
+    "ignore": ["node_modules", "dist", "package-lock.json"]
+  },
+  "keywords": [
+    "uspto",
+    "patents",
+    "patent-view",
+    "api-wrapper",
+    "inventors",
+    "uspto-api-wrapper",
+    "patent-api-wrapper",
+    "patent-view-api-wrapper"
+  ],
+  "author": "Dylan Steele",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "~4.2.14",
+    "@types/got": "^9.6.12",
+    "@types/lodash": "^4.14.172",
+    "@types/mocha": "~8.2.0",
+    "@types/node": "^16.0.0",
+    "@types/sinon": "~9.0.10",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
+    "chai": "~4.2.0",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "mocha": "~8.2.1",
+    "prettier": "^2.3.2",
+    "sinon": "~9.2.3",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "got": "^11.8.2",
+    "lodash": "^4.17.21",
+    "rxjs": "~7.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dills122/patent-view-api"
+  },
+  "bugs": {
+    "url": "https://github.com/dills122/patent-view-api/issues"
+  }
+}

@@ -1,0 +1,21 @@
+# Rush files
+common
+common/changes/
+common/scripts/
+common/config/
+CHANGELOG.*
+
+# Package manager files
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+shrinkwrap.json
+
+# Build outputs
+dist
+types
+
+# Prettier reformats code blocks inside Markdown, which affects rendered output
+*.md
+
+lib/is-ticker-symbol/config.json
