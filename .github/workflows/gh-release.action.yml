@@ -17,6 +17,8 @@ jobs:
 
     steps:
       - uses: 'marvinpinto/action-automatic-releases@latest'
+      - uses: dawidd6/action-get-tag@v1
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           prerelease: false
+          automatic_release_tag: '${{ steps.tag.outputs.tag }}'
