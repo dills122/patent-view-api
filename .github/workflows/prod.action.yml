@@ -10,21 +10,11 @@ on:
 
 jobs:
   gh-release:
-    name: Create Release
     runs-on: ubuntu-latest
     steps:
-        uses: actions/checkout@v2
-      - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: 'marvinpinto/action-automatic-releases@latest'
         with:
-          tag_name: ${{ env.RELEASE_VERSION }}
-          release_name: Release ${{ env.RELEASE_VERSION }}
-          draft: false
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
           prerelease: false
   npm-publish:
     runs-on: ubuntu-latest
