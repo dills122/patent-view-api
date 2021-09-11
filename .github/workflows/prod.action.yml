@@ -21,9 +21,3 @@ jobs:
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-  change-log:
-    runs-on: ubuntu-latest
-    env:
-      REPO: ${{ github.repository }}
-    steps:
-      - uses: scottbrenner/generate-changelog-action@master
