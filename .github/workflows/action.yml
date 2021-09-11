@@ -28,6 +28,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
+      - run: npm i
       - run: npm run prettier
   pr_job:
     runs-on: ubuntu-latest
