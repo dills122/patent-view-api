@@ -8,7 +8,7 @@ import { Range } from './get';
 describe('Endpoints::', () => {
   describe('Patents::', () => {
     describe('Range::', () => {
-      describe.only('Get::', () => {
+      describe('Get::', () => {
         it('should test it out', async () => {
           const getter = new Range();
           const results = await lastValueFrom(
