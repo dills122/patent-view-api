@@ -1,7 +1,12 @@
-name: 'tagged-release'
+name: GH Tagged Release
 
 on:
-  push:
+  release:
+    types: [published]
+  pull_request:
+    types: closed
+    branches:
+      - master
     tags:
       - 'v*'
 
