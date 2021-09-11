@@ -1,6 +1,6 @@
 {
   "name": "uspto-patents-view-api",
-  "version": "0.0.5-0",
+  "version": "0.0.5",
   "description": "An api wrapper for the patent view api run by the uspto",
   "main": "src/index.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --write src/**/*.ts",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "version": "auto-changelog -p && git add HISTORY.md"
   },
   "husky": {
     "hooks": {
@@ -39,6 +40,12 @@
       "package-lock.json"
     ]
   },
+  "auto-changelog": {
+    "output": "HISTORY.md",
+    "template": "keepachangelog",
+    "unreleased": true,
+    "commitLimit": false
+  },
   "keywords": [
     "uspto",
     "patents",
@@ -60,6 +67,7 @@
     "@types/sinon": "~9.0.10",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
+    "auto-changelog": "^2.3.0",
     "chai": "~4.2.0",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
