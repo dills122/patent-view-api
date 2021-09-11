@@ -14,7 +14,9 @@ jobs:
   tagged-release:
     name: 'Tagged Release'
     runs-on: 'ubuntu-latest'
-
+    permissions:
+      contents: read/write
+      metadata: read
     steps:
       - uses: 'marvinpinto/action-automatic-releases@latest'
       - uses: dawidd6/action-get-tag@v1
