@@ -1,6 +1,6 @@
 {
   "name": "uspto-patents-view-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An api wrapper for the patent view api run by the uspto",
   "main": "src/index.js",
   "scripts": {
@@ -20,11 +20,24 @@
   },
   "lint-staged": {
     "linters": {
-      "src/**/*.ts": ["prettier --write", "git add"],
-      "package.json": ["prettier --write", "git add"],
-      "*.md": ["prettier --write", "git add"]
+      "src/**/*.ts": [
+        "prettier --write",
+        "git add"
+      ],
+      "package.json": [
+        "prettier --write",
+        "git add"
+      ],
+      "*.md": [
+        "prettier --write",
+        "git add"
+      ]
     },
-    "ignore": ["node_modules", "dist", "package-lock.json"]
+    "ignore": [
+      "node_modules",
+      "dist",
+      "package-lock.json"
+    ]
   },
   "keywords": [
     "uspto",
