@@ -1,14 +1,9 @@
 name: GH Tagged Release
 
 on:
-  release:
-    types: [published]
-  pull_request:
-    types: closed
-    branches:
-      - master
+  push:
     tags:
-      - 'v*'
+      - '*'
 jobs:
   release:
     runs-on: ubuntu-latest
