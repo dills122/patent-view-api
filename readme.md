@@ -1,5 +1,7 @@
 # Patent View Api
 
+[![CI Job](https://github.com/dills122/patent-view-api/actions/workflows/ci.action.yml/badge.svg)](https://github.com/dills122/patent-view-api/actions/workflows/ci.action.yml)
+
 Checkout all the granted patents over the last 50 years.
 
 ## API Description
