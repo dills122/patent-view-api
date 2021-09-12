@@ -2,6 +2,8 @@ name: GH Tagged Release
 
 on:
   push:
+    branches:
+      - master
     tags:
       - '*'
 jobs:
