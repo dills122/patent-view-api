@@ -3,6 +3,10 @@ name: CI Job
 on:
   pull_request:
     types: [synchronize, opened, reopened]
+  push:
+    # branches to consider in the event; optional, defaults to all
+    branches:
+      - master
 jobs:
   dot_only_linter_job:
     runs-on: ubuntu-latest
