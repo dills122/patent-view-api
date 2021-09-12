@@ -9,17 +9,18 @@ on:
       - master
     tags:
       - 'v*'
-
 jobs:
-  tagged-release:
-    name: 'Tagged Release'
-    runs-on: 'ubuntu-latest'
+  release:
+    runs-on: ubuntu-latest
     steps:
-      - uses: 'marvinpinto/action-automatic-releases@latest'
-      - uses: dawidd6/action-get-tag@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
+      - uses: actions/checkout@master
+      - name: Create Archive Release
+        uses: thedoctor0/zip-release@master
         with:
-          repo_token: ${{ env.GITHUB_TOKEN }}
-          prerelease: false
-          automatic_release_tag: ${{ steps.tag.outputs.tag }}
+          filename: 'release.zip'
+          exclusions: '*.git*'
+      - name: Upload Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: 'release.zip'
+          token: ${{ secrets.GITHUB_TOKEN }}
