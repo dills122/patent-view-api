@@ -18,7 +18,7 @@ jobs:
       - uses: 'marvinpinto/action-automatic-releases@latest'
       - uses: dawidd6/action-get-tag@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
         with:
           repo_token: ${{ env.GITHUB_TOKEN }}
           prerelease: false
