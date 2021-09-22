@@ -16,23 +16,17 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier"
+      "pre-commit": "npx lint-staged"
     }
   },
   "lint-staged": {
     "linters": {
       "src/**/*.ts": [
         "prettier --write",
-        "git add"
+        "npm run lint:fix"
       ],
-      "package.json": [
-        "prettier --write",
-        "git add"
-      ],
-      "*.md": [
-        "prettier --write",
-        "git add"
-      ]
+      "package.json": "prettier --write",
+      "*.md": "prettier --write"
     },
     "ignore": [
       "node_modules",
