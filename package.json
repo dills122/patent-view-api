@@ -12,27 +12,16 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --write src/**/*.ts",
     "prepublishOnly": "npm run build",
-    "version": "auto-changelog -p && git add HISTORY.md"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx lint-staged"
-    }
+    "version": "auto-changelog -p && git add HISTORY.md",
+    "prepare": "husky install"
   },
   "lint-staged": {
-    "linters": {
-      "src/**/*.ts": [
-        "prettier --write",
-        "npm run lint:fix"
-      ],
-      "package.json": "prettier --write",
-      "*.md": "prettier --write"
-    },
-    "ignore": [
-      "node_modules",
-      "dist",
-      "package-lock.json"
-    ]
+    "*.ts": [
+      "prettier --write",
+      "npm run lint:fix"
+    ],
+    "package.json": "prettier --write",
+    "*.md": "prettier --write"
   },
   "auto-changelog": {
     "output": "HISTORY.md",
