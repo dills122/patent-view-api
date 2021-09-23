@@ -3,10 +3,6 @@ name: Publish
 on:
   release:
     types: [published]
-  pull_request:
-    types: closed
-    branches:
-      - master
 
 jobs:
   npm-publish:

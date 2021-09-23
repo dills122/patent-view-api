@@ -43,3 +43,10 @@ jobs:
           node-version: 14
       - run: npm i
       - run: npm t
+  automerge:
+    runs-on: ubuntu-latest
+    needs: [linter_job, dot_only_linter_job, eslint_linter_job, prettier_linter_job, pr_job]
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v2.1.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
