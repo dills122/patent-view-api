@@ -1,10 +1,10 @@
 import got from 'got';
-import PatentConfig from '../config';
-import MainConfig from '../../../config';
 import path from 'path';
-import { EMPTY, from } from 'rxjs';
-import { expand, take, map, reduce } from 'rxjs/operators';
+import { EMPTY, from, Subject } from 'rxjs';
+import { expand, map, reduce, takeUntil } from 'rxjs/operators';
+import MainConfig from '../../../config';
 import QueryBuilder, { QueryObject, SearchTerm } from '../../../query-system/build';
+import PatentConfig from '../config';
 
 const PAGE_SIZE = 50;
 
@@ -63,6 +63,7 @@ function buildRangeQueryStringObject(args: RangeArgs): SearchTerm[] {
 export class Range {
   private pageSize: number;
   private pages: number;
+  private endNotifier = new Subject<boolean>();
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   between(args: RangeArgs, dataPoints: DataPoints = []) {
     const { pageSize, ...rangeArgs } = args;
@@ -78,15 +79,17 @@ export class Range {
     };
     return this.request(requestArgs, 1).pipe(
       expand((data, index) => {
-        const { count } = data;
-        console.log(count);
-        if (count < this.pageSize) {
+        const { count, total_patent_count } = data;
+        const hasHitMaxUserReqPageCount = this.pageSize * this.pages <= count;
+        const hasHitMaxServerPageCount = count >= total_patent_count;
+        if (hasHitMaxServerPageCount || hasHitMaxUserReqPageCount) {
+          this.completeRequestSequence();
           return EMPTY;
         }
         const nextPage = index + 1;
         return this.request(requestArgs, nextPage);
       }),
-      take(this.pages),
+      takeUntil(this.endNotifier),
       map((data) => [...data.patents]),
       reduce((acc, data) => {
         return acc.concat(...data);
@@ -119,5 +122,10 @@ export class Range {
         return JSON.parse(data.body) as PatentResponse;
       })
     );
+  }
+
+  private completeRequestSequence() {
+    this.endNotifier.next(true);
+    this.endNotifier.complete();
   }
 }
