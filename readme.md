@@ -1,6 +1,7 @@
 # Patent View Api
 
 [![CI Job](https://github.com/dills122/patent-view-api/actions/workflows/ci.action.yml/badge.svg)](https://github.com/dills122/patent-view-api/actions/workflows/ci.action.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/dills122/patent-view-api/badge)](https://www.codefactor.io/repository/github/dills122/patent-view-api)
 
 Checkout all the granted patents over the last 50 years.
 
