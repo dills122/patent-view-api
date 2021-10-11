@@ -13,7 +13,7 @@ export interface QueryObject {
   [key: string]: SearchTerm[];
 }
 
-export default abstract class {
+export abstract class QueryBuilder {
   static build(args: BuildArgs): QueryObject {
     if (args.and) {
       return this.generateQuery('_and', args.and);

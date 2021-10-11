@@ -2,11 +2,11 @@ import path from 'path';
 import { EMPTY, Subject } from 'rxjs';
 import { expand, map, reduce, takeUntil } from 'rxjs/operators';
 
-import QueryBuilder, { SearchTerm } from '../../../query-system/build';
+import { SearchTerm, QueryBuilder } from '../../../query-system';
 import { BaseEndpoint, PAGE_SIZE, Pagination } from '../../base';
 import { DataPoints } from '../../shared-types';
 import PatentConfig from '../config';
-import { Patent } from '../models/patent.model';
+import { Patent } from '../models';
 
 export interface RangeArgs extends Pagination {
   startDate: string;

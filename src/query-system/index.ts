@@ -1,1 +1,1 @@
-export * as Build from './build';
+export * from './build';

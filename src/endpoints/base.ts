@@ -3,7 +3,7 @@ import path from 'path';
 import { from, map } from 'rxjs';
 
 import MainConfig from '../config';
-import { QueryObject } from '../query-system/build';
+import { QueryObject } from '../query-system';
 import { DataPoints } from './shared-types';
 
 export const PAGE_SIZE = 50;
