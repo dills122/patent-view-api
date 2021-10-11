@@ -98,5 +98,3 @@ _.pem
 _.srl
 _.cert
 _.csr
-
-package-lock.json
