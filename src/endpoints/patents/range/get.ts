@@ -1,17 +1,12 @@
-import got from 'got';
 import path from 'path';
-import { EMPTY, from, Subject } from 'rxjs';
+import { EMPTY, Subject } from 'rxjs';
 import { expand, map, reduce, takeUntil } from 'rxjs/operators';
-import MainConfig from '../../../config';
-import QueryBuilder, { QueryObject, SearchTerm } from '../../../query-system/build';
+
+import QueryBuilder, { SearchTerm } from '../../../query-system/build';
+import { BaseEndpoint, PAGE_SIZE, Pagination } from '../../base';
+import { DataPoints } from '../../shared-types';
 import PatentConfig from '../config';
-
-const PAGE_SIZE = 50;
-
-export interface Pagination {
-  pageSize?: number;
-  pages?: number;
-}
+import { Patent } from '../models/patent.model';
 
 export interface RangeArgs extends Pagination {
   startDate: string;
@@ -23,22 +18,6 @@ export interface PatentResponse {
   count: number;
   total_patent_count: number;
 }
-
-export interface Patent {
-  patent_number: string;
-  patent_date: string;
-  patent_title: string;
-  patent_abstract?: string;
-  inventors?: Investor[];
-}
-
-export interface Investor {
-  investor_last_name: string;
-  investor_first_name: string;
-  investor_key_id: string;
-}
-
-export type DataPoints = string[];
 
 function buildRangeQueryStringObject(args: RangeArgs): SearchTerm[] {
   return [
@@ -60,10 +39,14 @@ function buildRangeQueryStringObject(args: RangeArgs): SearchTerm[] {
   ];
 }
 
-export class Range {
-  private pageSize: number;
+export class Range extends BaseEndpoint {
+  protected pageSize: number;
   private pages: number;
   private endNotifier = new Subject<boolean>();
+  constructor() {
+    super();
+    this.apiEndpointUrl = path.join(PatentConfig.subsdirectory, PatentConfig.endpoint);
+  }
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   between(args: RangeArgs, dataPoints: DataPoints = []) {
     const { pageSize, ...rangeArgs } = args;
@@ -97,31 +80,8 @@ export class Range {
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  request(
-    requestPayload: {
-      args: RangeArgs;
-      dataPoints: DataPoints;
-      queryParamObject: QueryObject;
-    },
-    page: number
-  ) {
-    return from(
-      got<string>(path.join(MainConfig.apiUrl, PatentConfig.subsdirectory, PatentConfig.endpoint), {
-        searchParams: {
-          q: JSON.stringify(requestPayload.queryParamObject),
-          f: JSON.stringify(['patent_number', 'patent_date', 'patent_title', ...requestPayload.dataPoints]),
-          o: JSON.stringify({
-            per_page: this.pageSize,
-            page
-          })
-        }
-      })
-    ).pipe(
-      map((data) => {
-        return JSON.parse(data.body) as PatentResponse;
-      })
-    );
+  protected override mapper(data: string): PatentResponse {
+    return JSON.parse(data) as PatentResponse;
   }
 
   private completeRequestSequence() {
