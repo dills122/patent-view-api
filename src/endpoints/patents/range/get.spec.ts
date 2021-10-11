@@ -28,10 +28,12 @@ describe('Endpoints::', () => {
           const getter = new Range();
           const results = await lastValueFrom(
             getter.between({
-              startDate: '2021-03-01',
-              endDate: '2021-09-06',
-              pageSize: 5,
-              pages: 3
+              args: {
+                startDate: '2021-03-01',
+                endDate: '2021-09-06',
+                pageSize: 5,
+                pages: 3
+              }
             })
           );
           expect(results).to.be.an('array').and.length(0);
@@ -48,10 +50,12 @@ describe('Endpoints::', () => {
           const getter = new Range();
           const results = await lastValueFrom(
             getter.between({
-              startDate: '2021-03-01',
-              endDate: '2021-09-06',
-              pageSize: 5,
-              pages: 3
+              args: {
+                startDate: '2021-03-01',
+                endDate: '2021-09-06',
+                pageSize: 5,
+                pages: 3
+              }
             })
           );
           expect(results).to.be.an('array').and.length(0);
@@ -78,10 +82,12 @@ describe('Endpoints::', () => {
           const getter = new Range();
           const results = await lastValueFrom(
             getter.between({
-              startDate: '2021-03-01',
-              endDate: '2021-09-06',
-              pageSize: 5,
-              pages: 3
+              args: {
+                startDate: '2021-03-01',
+                endDate: '2021-09-06',
+                pageSize: 5,
+                pages: 3
+              }
             })
           );
           expect(results).to.be.an('array').and.length(0);
@@ -124,10 +130,12 @@ describe('Endpoints::', () => {
           const getter = new Range();
           const results = await lastValueFrom(
             getter.between({
-              startDate: '2021-03-01',
-              endDate: '2021-09-06',
-              pageSize: 1,
-              pages: 3
+              args: {
+                startDate: '2021-03-01',
+                endDate: '2021-09-06',
+                pageSize: 1,
+                pages: 3
+              }
             })
           );
           expect(results).to.be.an('array').and.length(0);

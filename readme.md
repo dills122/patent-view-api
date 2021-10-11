@@ -8,10 +8,37 @@ Checkout all the granted patents over the last 50 years.
 
 ## API Description
 
+Examples of the
+
+Shared arguments:
+
+  * `dataPoints` - fields you want in your response; 
+    * example: `["patent_number", "date"]`
+  * `sortBy` - how you would like your results sorting in the response
+    * example: `[{"patent_number":"desc"}]`
+
+All endpoints support pagination, thus all endpoint's args object will have the following properties
+
+```typescript
+{
+  pageSize?: number;
+  pages?: number;
+}
+```
+
 * `Endpoints`
   * `Patents` - retrieve details about patents and inventors
     * `Range` - Get all the patents between a period of time
-      * `startDate` - string - Required
-      * `endDate` - string - Required
-      * `pageSize` - number Optional
-      * `pages` - number Optional
+      * ```typescript
+        /*
+          RangeArgs: {
+            startDate: string;
+            endDate: string;
+          }
+        */
+        const resp = await new Range().between({
+          args: RangeArgs;
+          dataPoints: DataPoints;
+          sortBy?: SortingOptions;
+        })
+        ```
