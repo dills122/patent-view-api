@@ -4,7 +4,7 @@ import { from, map } from 'rxjs';
 
 import MainConfig from '../config';
 import { QueryObject } from '../query-system';
-import { DataPoints } from './shared-types';
+import { DataPoints, SortingOptions } from './shared-types';
 
 export const PAGE_SIZE = 50;
 
@@ -13,27 +13,30 @@ export interface Pagination {
   pages?: number;
 }
 
+export interface RequestPayload {
+  dataPoints: DataPoints;
+  queryParamObject: QueryObject;
+  sortingOptions?: SortingOptions;
+}
+
+interface BaseQueryParameters {
+  q?: string;
+  f?: string;
+  o?: string;
+  s?: string;
+}
+
 export class BaseEndpoint {
   protected apiEndpointUrl: string;
   protected pageSize: number;
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  request(
-    requestPayload: {
-      dataPoints: DataPoints;
-      queryParamObject: QueryObject;
-    },
-    page: number
-  ) {
+  request(requestPayload: RequestPayload, page: number) {
+    const searchParams = this.setupSearchParams(requestPayload, page);
     return from(
       got<string>(path.join(MainConfig.apiUrl, this.apiEndpointUrl), {
         searchParams: {
-          q: JSON.stringify(requestPayload.queryParamObject),
-          f: JSON.stringify(['patent_number', 'patent_date', 'patent_title', ...requestPayload.dataPoints]),
-          o: JSON.stringify({
-            per_page: this.pageSize,
-            page
-          })
+          ...searchParams
         }
       })
     ).pipe(
@@ -41,6 +44,26 @@ export class BaseEndpoint {
         return this.mapper(data.body);
       })
     );
+  }
+
+  private setupSearchParams(requestPayload: RequestPayload, page: number) {
+    try {
+      const searchParams: BaseQueryParameters = {
+        q: JSON.stringify(requestPayload.queryParamObject),
+        f: JSON.stringify(['patent_number', 'patent_date', 'patent_title', ...requestPayload.dataPoints]),
+        o: JSON.stringify({
+          per_page: this.pageSize,
+          page
+        })
+      };
+      if (requestPayload.sortingOptions) {
+        searchParams.s = JSON.stringify(requestPayload.sortingOptions);
+      }
+      return searchParams;
+    } catch (err) {
+      console.error(err);
+      throw Error('Issue building search parameters');
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -1,6 +1,7 @@
 import path from 'path';
 import { EMPTY, Subject } from 'rxjs';
 import { expand, map, reduce, takeUntil } from 'rxjs/operators';
+import { RequestPayload, SortingOptions } from '../..';
 
 import { SearchTerm, QueryBuilder } from '../../../query-system';
 import { BaseEndpoint, PAGE_SIZE, Pagination } from '../../base';
@@ -48,7 +49,15 @@ export class Range extends BaseEndpoint {
     this.apiEndpointUrl = path.join(PatentConfig.subsdirectory, PatentConfig.endpoint);
   }
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  between(args: RangeArgs, dataPoints: DataPoints = []) {
+  between({
+    args,
+    dataPoints = [],
+    sortBy
+  }: {
+    args: RangeArgs;
+    dataPoints: DataPoints;
+    sortBy?: SortingOptions;
+  }) {
     const { pageSize, ...rangeArgs } = args;
     this.pageSize = pageSize || PAGE_SIZE;
     this.pages = args.pages || 10;
@@ -58,8 +67,9 @@ export class Range extends BaseEndpoint {
     const requestArgs = {
       args: rangeArgs,
       dataPoints,
-      queryParamObject: queryObject
-    };
+      queryParamObject: queryObject,
+      sortingOptions: sortBy
+    } as RequestPayload;
     return this.request(requestArgs, 1).pipe(
       expand((data, index) => {
         const { count, total_patent_count } = data;
