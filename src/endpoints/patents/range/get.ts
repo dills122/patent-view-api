@@ -55,7 +55,7 @@ export class Range extends BaseEndpoint {
     sortBy
   }: {
     args: RangeArgs;
-    dataPoints: DataPoints;
+    dataPoints?: DataPoints;
     sortBy?: SortingOptions;
   }) {
     const { pageSize, ...rangeArgs } = args;
