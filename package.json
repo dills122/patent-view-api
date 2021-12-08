@@ -42,7 +42,7 @@
   "author": "Dylan Steele",
   "license": "MIT",
   "devDependencies": {
-    "@types/chai": "~4.2.14",
+    "@types/chai": "~4.3.0",
     "@types/got": "^9.6.12",
     "@types/lodash": "^4.14.172",
     "@types/mocha": "~9.0.0",
