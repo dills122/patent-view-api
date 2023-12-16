@@ -8,41 +8,78 @@ on:
     branches:
       - master
 jobs:
+  cache-and-install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
   dot_only_linter_job:
     runs-on: ubuntu-latest
     steps:
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+    steps:
       - uses: actions/checkout@v2
         with:
-          node-version: 14
+          node-version: 20
       - run: chmod +x "${GITHUB_WORKSPACE}/.github/scripts/dot-only-test-linter.sh"
       - run: '${GITHUB_WORKSPACE}/.github/scripts/dot-only-test-linter.sh'
   eslint_linter_job:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14
-      - run: npm i
-      - run: npm run lint
+          node-version: 20
+      - run: pnpm install
+      - run: pnpm lint
   prettier_linter_job:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14
-      - run: npm i
-      - run: npm run prettier
+          node-version: 20
+      - run: pnpm install
+      - run: pnpm prettier
   pr_job:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14
-      - run: npm i
-      - run: npm t
+          node-version: 20
+      - run: pnpm install
+      - run: pnpm test
   automerge:
     runs-on: ubuntu-latest
     needs: [dot_only_linter_job, eslint_linter_job, prettier_linter_job, pr_job]
