@@ -73,8 +73,10 @@ export class Range extends BaseEndpoint {
     return this.request(requestArgs, 1).pipe(
       expand((data, index) => {
         const { count, total_patent_count } = data;
-        const hasHitMaxUserReqPageCount = this.pageSize * this.pages <= count;
-        const hasHitMaxServerPageCount = count >= total_patent_count;
+        const currentPageNonZeroIndexed = index + 1;
+        const hasHitMaxUserReqPageCount = this.pages <= currentPageNonZeroIndexed;
+        const hasHitMaxServerPageCount =
+          count < this.pageSize || this.pageSize * currentPageNonZeroIndexed >= total_patent_count;
         if (hasHitMaxServerPageCount || hasHitMaxUserReqPageCount) {
           this.completeRequestSequence();
           return EMPTY;
