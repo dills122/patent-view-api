@@ -1,6 +1,6 @@
 import got from 'got';
 import path from 'path';
-import { from, map } from 'rxjs';
+import { Observable, from, map } from 'rxjs';
 
 import MainConfig from '../config';
 import { QueryObject } from '../query-system';
@@ -31,7 +31,7 @@ export class BaseEndpoint {
   protected pageSize: number;
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  request(requestPayload: RequestPayload, page: number) {
+  request<T>(requestPayload: RequestPayload, page: number): Observable<T> {
     const searchParams = this.setupSearchParams(requestPayload, page);
     return from(
       got<string>(path.join(MainConfig.apiUrl, this.apiEndpointUrl), {

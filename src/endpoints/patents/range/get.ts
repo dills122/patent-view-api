@@ -1,5 +1,5 @@
 import path from 'path';
-import { EMPTY, Subject } from 'rxjs';
+import { EMPTY, Observable, Subject } from 'rxjs';
 import { expand, map, reduce, takeUntil } from 'rxjs/operators';
 import { RequestPayload, SortingOptions } from '../..';
 
@@ -57,7 +57,7 @@ export class Range extends BaseEndpoint {
     args: RangeArgs;
     dataPoints?: DataPoints;
     sortBy?: SortingOptions;
-  }) {
+  }): Observable<Patent[]> {
     const { pageSize, ...rangeArgs } = args;
     this.pageSize = pageSize || PAGE_SIZE;
     this.pages = args.pages || 10;
@@ -70,22 +70,29 @@ export class Range extends BaseEndpoint {
       queryParamObject: queryObject,
       sortingOptions: sortBy
     } as RequestPayload;
-    return this.request(requestArgs, 1).pipe(
-      expand((data, index) => {
+    let page = 1;
+    return this.request<PatentResponse>(requestArgs, page).pipe(
+      expand((data) => {
         const { count, total_patent_count } = data;
-        const currentPageNonZeroIndexed = index + 1;
-        const hasHitMaxUserReqPageCount = this.pages <= currentPageNonZeroIndexed;
-        const hasHitMaxServerPageCount =
-          count < this.pageSize || this.pageSize * currentPageNonZeroIndexed >= total_patent_count;
-        if (hasHitMaxServerPageCount || hasHitMaxUserReqPageCount) {
+        console.log(`total_patent_count:${total_patent_count}`);
+        const hasHitMaxUserReqPageCount = this.pages <= page;
+        const hasHitMaxServerPageCount = count < this.pageSize || this.pageSize * page >= total_patent_count;
+        if (hasHitMaxServerPageCount || hasHitMaxUserReqPageCount || data.patents == null) {
           this.completeRequestSequence();
           return EMPTY;
         }
-        const nextPage = index + 1;
-        return this.request(requestArgs, nextPage);
+        const nextPage = page++;
+        return this.request<PatentResponse>(requestArgs, nextPage);
       }),
       takeUntil(this.endNotifier),
-      map((data) => [...data.patents]),
+      map((data) => {
+        if (!data.patents) {
+          this.completeRequestSequence();
+          return [];
+        } else {
+          return [...data.patents];
+        }
+      }),
       reduce((acc, data) => {
         return acc.concat(...data);
       })
