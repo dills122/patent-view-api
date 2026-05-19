@@ -9,65 +9,65 @@ importers:
   .:
     dependencies:
       got:
-        specifier: ^11.8.2
+        specifier: ^11.8.6
         version: 11.8.6
       lodash:
-        specifier: ^4.17.21
+        specifier: ^4.18.1
         version: 4.18.1
       rxjs:
-        specifier: ^7.8.1
+        specifier: ^7.8.2
         version: 7.8.2
     devDependencies:
       '@types/chai':
-        specifier: ^5.2.2
+        specifier: ^5.2.3
         version: 5.2.3
       '@types/got':
         specifier: ^9.6.12
         version: 9.6.12
       '@types/lodash':
-        specifier: ^4.14.202
+        specifier: ^4.17.24
         version: 4.17.24
       '@types/mocha':
-        specifier: ^10.0.6
+        specifier: ^10.0.10
         version: 10.0.10
       '@types/node':
-        specifier: ^25.0.2
+        specifier: ^25.9.0
         version: 25.9.0
       '@types/sinon':
-        specifier: ^21.0.0
+        specifier: ^21.0.1
         version: 21.0.1
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.0.0(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@6.0.3))(eslint@8.57.1)(typescript@6.0.3)
       '@typescript-eslint/parser':
-        specifier: ^6.14.0
+        specifier: ^6.21.0
         version: 6.21.0(eslint@8.57.1)(typescript@6.0.3)
       auto-changelog:
-        specifier: ^2.4.0
+        specifier: ^2.5.1
         version: 2.5.1
       chai:
-        specifier: ^6.0.1
+        specifier: ^6.2.2
         version: 6.2.2
       eslint:
-        specifier: ^8.56.0
+        specifier: ^8.57.1
         version: 8.57.1
       eslint-config-prettier:
-        specifier: ^10.0.1
+        specifier: ^10.1.8
         version: 10.1.8(eslint@8.57.1)
       eslint-plugin-prettier:
-        specifier: ^5.0.1
+        specifier: ^5.5.5
         version: 5.5.5(eslint-config-prettier@10.1.8(eslint@8.57.1))(eslint@8.57.1)(prettier@3.8.3)
       husky:
-        specifier: ^9.0.7
+        specifier: ^9.1.7
         version: 9.1.7
       lint-staged:
-        specifier: ^17.0.4
+        specifier: ^17.0.5
         version: 17.0.5
       mocha:
-        specifier: ^11.0.1
+        specifier: ^11.7.5
         version: 11.7.5
       prettier:
-        specifier: ^3.1.1
+        specifier: ^3.8.3
         version: 3.8.3
       sinon:
         specifier: ^22.0.0
@@ -76,7 +76,7 @@ importers:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@25.9.0)(typescript@6.0.3)
       typescript:
-        specifier: ^6.0.2
+        specifier: ^6.0.3
         version: 6.0.3
 
 packages:
@@ -643,8 +643,8 @@ packages:
     resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
     hasBin: true
 
-  flatted@3.2.9:
-    resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
+  flatted@3.4.2:
+    resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
 
   foreground-child@3.3.1:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
@@ -1859,13 +1859,13 @@ snapshots:
 
   flat-cache@3.2.0:
     dependencies:
-      flatted: 3.2.9
+      flatted: 3.4.2
       keyv: 4.5.4
       rimraf: 3.0.2
 
   flat@5.0.2: {}
 
-  flatted@3.2.9: {}
+  flatted@3.4.2: {}
 
   foreground-child@3.3.1:
     dependencies:
