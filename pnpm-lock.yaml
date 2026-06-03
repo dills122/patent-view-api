@@ -44,7 +44,7 @@ importers:
         version: 6.21.0(eslint@8.57.1)(typescript@6.0.3)
       auto-changelog:
         specifier: ^2.4.0
-        version: 2.5.1
+        version: 2.6.0
       chai:
         specifier: ^6.0.1
         version: 6.2.2
@@ -365,8 +365,8 @@ packages:
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
-  auto-changelog@2.5.1:
-    resolution: {integrity: sha512-vpG10KkmGaeMHwvCK2G+4j6e1+ZxVnhDadHnbG0sFuiB2fzAPIybicp5782btmf4+UGfHklVCUcHWZyN3YiXKg==}
+  auto-changelog@2.6.0:
+    resolution: {integrity: sha512-jJgUkuWXQ7fPLPXOMQk/XSSmy7KvzpzhjJa6w660dq1KTEez/GW2CPckBra3jMMMMpcwxp84bOslo29qRCewzA==}
     engines: {node: '>= 10'}
     hasBin: true
 
@@ -1117,8 +1117,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  semver@7.8.0:
-    resolution: {integrity: sha512-AcM7dV/5ul4EekoQ29Agm5vri8JNqRyj39o0qpX6vDF2GZrtutZl5RwgD1XnZjiTAfncsJhMI48QQH3sN87YNA==}
+  semver@7.8.1:
+    resolution: {integrity: sha512-rkVq3IXh+4FDGch+KwzX3aV9W3kO54GyEgpvBzSyctDA6Xtd7RJQV1xmXbeQp5v7+VzLOfVqiutSE6GICgPFvg==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -1553,7 +1553,7 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
-      semver: 7.8.0
+      semver: 7.8.1
       ts-api-utils: 1.0.3(typescript@6.0.3)
     optionalDependencies:
       typescript: 6.0.3
@@ -1568,7 +1568,7 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
-      semver: 7.8.0
+      semver: 7.5.4
       ts-api-utils: 1.0.3(typescript@6.0.3)
     optionalDependencies:
       typescript: 6.0.3
@@ -1584,7 +1584,7 @@ snapshots:
       '@typescript-eslint/types': 7.0.0
       '@typescript-eslint/typescript-estree': 7.0.0(typescript@6.0.3)
       eslint: 8.57.1
-      semver: 7.8.0
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -1640,13 +1640,13 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  auto-changelog@2.5.1:
+  auto-changelog@2.6.0:
     dependencies:
       commander: 7.2.0
       handlebars: 4.7.9
       import-cwd: 3.0.0
       parse-github-url: 1.0.4
-      semver: 7.8.0
+      semver: 7.8.1
 
   balanced-match@1.0.2: {}
 
@@ -2384,7 +2384,7 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
-  semver@7.8.0: {}
+  semver@7.8.1: {}
 
   serialize-javascript@6.0.2:
     dependencies:
